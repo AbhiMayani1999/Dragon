@@ -1,0 +1,111 @@
+<div class="panel">
+  <div class="mb-5 text-lg font-semibold">Component</div>
+  <div class="grid grid-cols-1 gap-x-12 sm:grid-cols-2">
+    <ol class="flex font-semibold text-gray-500 dark:text-white-dark mb-3">
+      <li>
+        <a href="javascript:;" class="hover:text-gray-500/70 dark:hover:text-white-dark/70"
+          (click)="onBreadcrumbClick(-1)">
+          <icon-home class="h-4 w-4" />
+        </a>
+      </li>
+      <li class="before:px-1.5 before:content-['/']" *ngFor="let item of breadcrumbs; let i=index">
+        <a href="javascript:;" class="bh-cursor-pointer" (click)="onBreadcrumbClick(i)">{{item.componentName}}</a>
+      </li>
+    </ol>
+    <ol class="flex font-semibold text-gray-500 dark:text-white-dark mb-3">
+      <li>
+        <a href="javascript:;" class="hover:text-gray-500/70 dark:hover:text-white-dark/70"
+          (click)="onBreadcrumbClick(-1)">
+          <icon-home class="h-4 w-4" />
+        </a>
+      </li>
+      <li class="before:px-1.5 before:content-['/']" *ngFor="let item of breadcrumbs; let i=index">
+        <a href="javascript:;" class="bh-cursor-pointer" (click)="onBreadcrumbClick(i)">{{item.storeName}}</a>
+      </li>
+    </ol>
+  </div>
+
+  <div class="grid grid-cols-1 gap-x-12 sm:grid-cols-2">
+    <div id="source" cdkDropList [cdkDropListData]="componentVisibleList" cdkDropListConnectedTo="builder"
+      cdkDropListSortingDisabled>
+      <div class="mb-2.5 cursor-grab" *ngFor="let item of componentVisibleList" cdkDrag [cdkDragData]="item">
+        <div
+          class="items-md-center flex flex-col rounded-md border border-white-light bg-white px-2 py-2 text-center dark:border-dark dark:bg-[#1b2e4b] md:flex-row ltr:md:text-left rtl:md:text-right">
+          <div class="ltr:sm:mr-4 rtl:sm:ml-4"> </div>
+          <div class="flex flex-1 flex-col items-center justify-between md:flex-row">
+            <div class="my-3 font-semibold md:my-0">
+              <div class="text-base text-dark dark:text-[#bfc9d4]">
+                <span>{{ item.name }}</span>
+                <span class="text-xs text-white-dark" *ngIf="item.propertyNameList">
+                  [ Properties: {{ item.propertyNameList }} ]
+                </span>
+              </div>
+              <div class="text-xs text-white-dark" *ngIf="item.subComponentNameList">
+                [ Sub Components: {{ item.subComponentNameList }} ]
+              </div>
+            </div>
+            <div class="flex">
+              <button type="button" title="remove" class="btn btn-danger p-2 ml-2"
+                (click)="removeComponentStructure(item.id)">
+                <icon-trash-lines class="h-4 w-4" />
+              </button>
+              <button type="button" title="edit" class="btn btn-primary p-2 ml-2" (click)="onUpdateComponent(item.id)">
+                <icon-edit class="h-4 w-4" />
+              </button>
+              <button type="button" title="edit" class="btn btn-secondary p-2 ml-2 mr-2" (click)="generateStoreOnServer(item)">
+                <icon-copy class="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary btn-sm w-full" (click)="onGenerateComponent()">
+        <icon-plus class="ltr:mr-2 rtl:ml-2" /> ADD </button>
+    </div>
+    <div id="builder" cdkDropList [cdkDropListData]="storeVisibleList" cdkDropListConnectedTo="source"
+      (cdkDropListDropped)="onGeneratorStore($event)">
+      <div class="placeholder" *cdkDragPlaceholder></div>
+      <div class="mb-2.5 cursor-grab" *ngFor="let item of storeVisibleList" cdkDrag [cdkDragData]="item">
+        <div
+          class="items-md-center flex flex-col rounded-md border border-white-light bg-white px-2 py-2 text-center dark:border-dark dark:bg-[#1b2e4b] md:flex-row ltr:md:text-left rtl:md:text-right">
+          <div class="ltr:sm:mr-4 rtl:sm:ml-4"> </div>
+          <div class="flex flex-1 flex-col items-center justify-between md:flex-row">
+            <div class="my-3 font-semibold md:my-0">
+              <div class="text-base text-dark flex items-center dark:text-[#bfc9d4]">
+                <span> {{ item.TitleProperty }} </span>&nbsp;
+                <span class="text-xs text-white-dark" *ngIf="!item.identifierEnable"
+                  (dblclick)="item.identifierEnable = !item.identifierEnable">
+                  ( {{ item.componentStructure?.name }} ) [ Identifier: {{ item.identifier }} ]
+                  <!-- [{{item.id}}] -->
+                </span>
+                <input id="inputSmall" type="text"
+                  (focusout)="item.identifierEnable = !item.identifierEnable; onChangeStoreIdentifierName(item)"
+                  *ngIf="item.identifierEnable" [(ngModel)]="item.identifier" class="form-input form-input-sm" />
+              </div>
+              <div class="text-xs text-white-dark" *ngIf="item.subStructureNameList">
+                [ Sub Structure: {{ item.subStructureNameList }}]
+              </div>
+            </div>
+            <div class="flex">
+              <button type="button" title="remove" class="btn btn-danger p-2 ml-2"
+                (click)="removeStructureStore(item.id)">
+                <icon-trash-lines class="h-4 w-4" />
+              </button>
+              <button type="button" title="edit" class="btn btn-primary p-2 ml-2" (click)="onUpdateProperties(item)">
+                <icon-edit class="h-4 w-4" />
+              </button>
+              <button type="button" title="Expand" class="btn btn-secondary p-2 mx-2" (click)="onExpandStructure(item)">
+                <icon-arrow-left class="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+          <!-- {{item.properties|json}} -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-component-generator #componentGenerator [parentComponents]="parentComponentList"
+  (onClose)="onClosePopup($event)"></app-component-generator>
+<app-property-generator #propertyGenerator></app-property-generator>
+<app-dy-alert [config]="alertConfig" #alertModal></app-dy-alert>

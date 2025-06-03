@@ -1,0 +1,110 @@
+<div>
+  @if(config && columnConfig && columnConfig.length && !isFrom){
+  @if(!cardView){
+  <table class="table table-bordered dt-responsive nowrap w-100 datatables">
+    <thead>
+      <tr>
+        <td [attr.colspan]="columnConfig.length+1" class="p-1">
+          <div class="d-flex align-items-center justify-content-between px-1">
+            <span class="fw-bold"> {{config.title}}</span>
+            <button type="button" class="btn btn-soft-primary btn-md waves-effect waves-light float-end"
+              (click)="onOpenForm()">
+              <i class="bx bx-plus-medical font-size-16 align-middle m-1"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        @for (field of columnConfig; track $index;) { <th>{{field.title}}</th> }
+        @if(config.editAction || config.deleteAction){ <th class="no-sort">Action</th> }
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of tableData | tablefilter:pageConfig; track $index) {
+      <tr>
+        @for (field of columnConfig; track $index;) {
+        @if(field.isImage && data[field.jsonProperty]){
+        <td class="p-1 align-middle">
+          <img src="{{imageUrl+data[field.jsonProperty]}}" alt="" class="avatar-sm rounded-circle">
+        </td>
+        }@else if(field.isDocument && data[field.jsonProperty]){
+        <td class="p-1 align-middle"><dy-file-icon [Type]="data[field.jsonProperty]" [Height]="30"
+            class="c-pointer"></dy-file-icon>
+        </td> }
+        @else{ <td> {{data[field.jsonProperty]}}</td> }
+        }
+        @if(config.editAction || config.deleteAction){
+        <td class="p-2 align-middle">
+          @if(config.editAction){
+          <button type="button" class="btn btn-soft-success waves-effect waves-light p-0 me-1"
+            (click)="onOpenForm(data)">
+            <i class="bx bx-pencil font-size-16 align-middle m-1"></i></button>
+          }
+          @if(config.deleteAction){
+          <button type="button" class="btn btn-soft-danger waves-effect waves-light p-0 m-0"
+            (click)="onDeleteRecord(data.id)">
+            <i class="bx bx-trash font-size-16 align-middle m-1"></i></button>
+          }
+        </td>
+        }
+      </tr>
+      }
+      @if(pageConfig){
+      <tr>
+        <td [attr.colspan]="columnConfig.length+1" class="p-1">
+          <div class="d-flex align-items-center justify-content-between p-0 ps-2"
+            [attr.colspan]="columnConfig.length+1">
+            <label class="d-inline-flex align-items-center text-nowrap m-0">
+              Show
+              <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                [(ngModel)]="pageConfig.pageSize" class="form-control form-control-sm mx-2">
+                <option [ngValue]="12">12</option>
+                <option [ngValue]="25">25</option>
+                <option [ngValue]="50">50</option>
+                <option [ngValue]="100">100</option>
+              </select> entries (Total : {{pageConfig.recordsCount}})</label>
+            <ngb-pagination [collectionSize]="pageConfig.recordsCount" [(page)]="pageConfig.currentPage" [maxSize]="5"
+              [pageSize]="pageConfig.pageSize" [rotate]="true" [ellipses]="false"
+              [boundaryLinks]="true"></ngb-pagination>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  } @else {
+  @for (data of tableData; track $index) {
+  <table class="table table-bordered dt-responsive nowrap w-100 datatables">
+    <tbody>
+      @for (field of columnConfig; track $index;) {
+      @if(field.isImage && data[field.jsonProperty]){
+      <td class="p-1 align-middle">
+        <img src="{{imageUrl+data[field.jsonProperty]}}" alt="" class="avatar-sm rounded-circle">
+      </td>
+      }@else if(field.isDocument && data[field.jsonProperty]){
+      <td class="p-1 align-middle"><dy-file-icon [Type]="data[field.jsonProperty]" [Height]="30"
+          class="c-pointer"></dy-file-icon>
+      </td> }
+      @else{ <td> {{data[field.jsonProperty]}}</td> }
+      }
+      <tr>
+        @if(config.editAction || config.deleteAction){
+        <td colspan="2" class="p-2 align-middle">
+          @if(config.editAction){
+          <button type="button" class="btn btn-soft-success waves-effect waves-light p-0 me-1"
+            (click)="onOpenForm(data)">
+            <i class="bx bx-pencil font-size-16 align-middle m-1"></i></button>
+          }
+          @if(config.deleteAction){
+          <button type="button" class="btn btn-soft-danger waves-effect waves-light p-0 m-0"
+            (click)="onDeleteRecord(data.id)">
+            <i class="bx bx-trash font-size-16 align-middle m-1"></i></button>
+          }
+        </td>
+        }
+      </tr>
+    </tbody>
+  </table>
+  } } }
+  @if(formConfig && isFrom){ <app-dycrudform [config]="formConfig" (onClose)="onCloseForm($event)"></app-dycrudform> }
+</div>

@@ -1,0 +1,6 @@
+
+
+
+/* <form [formGroup]="form1">
+    <ng2-flatpickr [config]="basic" formControlName="date1" addClass="form-input"></ng2-flatpickr>
+</form> */

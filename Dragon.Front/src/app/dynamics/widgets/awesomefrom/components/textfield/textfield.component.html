@@ -1,0 +1,10 @@
+<div class="mb-2" [ngClass]="isSubmitted ? formGroup.get(config.jsonProperty).errors ? 'has-error' : 'has-success' : ''"
+    [formGroup]="formGroup">
+    <label [for]="config.jsonProperty">{{config.title}}</label>
+    <input [id]="config.jsonProperty" type="text" class="form-input" [formControlName]="config.jsonProperty" />
+    <ng-container *ngFor="let validation of config.validation">
+        <p *ngIf="isSubmitted && formGroup.get(config.jsonProperty).hasError(validation.type)" class="mt-1 text-danger">
+            {{validation.message}}
+        </p>
+    </ng-container>
+</div>

@@ -1,0 +1,8 @@
+<div class="mt-4 pt-1 form-check" [formGroup]="formGroup">
+  <input [id]="config.jsonProperty" type="checkbox" class="form-check-input" [formControlName]="config.jsonProperty"
+    [ngClass]="{'is-valid': isSubmitted && formGroup.get(config.jsonProperty).valid, 'is-invalid': isSubmitted && formGroup.get(config.jsonProperty).errors}">
+  <label [for]="config.jsonProperty">{{config.title}}</label>
+  @if(isSubmitted && formGroup.get(config.jsonProperty).errors){
+  <div class="invalid-feedback">
+  @for (validation of config.validation; track $index) { <span>{{validation.message}}</span> } </div> }
+</div>

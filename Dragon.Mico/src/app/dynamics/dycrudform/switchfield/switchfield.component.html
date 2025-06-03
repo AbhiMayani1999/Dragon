@@ -1,0 +1,11 @@
+<div [formGroup]="formGroup">
+  <label [for]="config.jsonProperty">{{config.title}}</label><br>
+  <ui-switch [id]="config.jsonProperty" [formControlName]="config.jsonProperty" defaultBoColor="#dfdfdf"
+    color="#5156be"></ui-switch>
+  @if(isSubmitted && formGroup.get(config.jsonProperty).errors){
+  <div class="invalid-feedback">
+    @for (validation of config.validation; track $index) { <span>{{validation.message}}</span> }
+  </div>
+  }
+</div>
+<!-- [ngClass]="{'is-valid': isSubmitted && formGroup.get(config.jsonProperty).valid, 'is-invalid': isSubmitted && formGroup.get(config.jsonProperty).errors}" -->

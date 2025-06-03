@@ -1,0 +1,20 @@
+<div class="panel">
+    <div class="mb-5 flex items-center justify-between">
+        <h5 class="text-lg font-semibold dark:text-white-light">{{formConfig.title}}</h5>
+    </div>
+    <div class="mb-5" *ngIf="dynamicForm">
+        <form #form="ngForm" [formGroup]="dynamicForm" (ngSubmit)="submitForm()" novalidate>
+            <div class="grid grid-cols-1 gap-5 md:grid-cols-4"
+                *ngIf="formConfig && formConfig.fields && formConfig.fields.length">
+                <ng-container *ngFor="let field of formConfig.fields">
+                    <ng-container awformfield
+                        [config]="{field: field, isSubmitted: isSubmitForm, formGroup: dynamicForm}">
+                    </ng-container>
+                </ng-container>
+            </div>
+            <button type="submit" class="btn btn-primary !mt-6">Submit Form</button>
+        </form>
+        {{dynamicForm.value |json}}
+    </div>
+</div>
+<!-- {{formConfig | json}} -->

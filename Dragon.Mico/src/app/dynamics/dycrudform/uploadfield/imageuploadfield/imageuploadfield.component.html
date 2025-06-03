@@ -1,0 +1,64 @@
+@if(existingFiles && existingFiles.length !=0){
+<div class="dropzone-view mb-3">
+  <label [for]="fieldConfig.jsonProperty">{{fieldConfig.title}}</label>
+  <div class="container-fluid">
+    <div class="row h-100">
+      <div
+        class="d-flex align-items-center justify-content-between flex-wrap p-0">
+        @for (file of existingFiles; track $index) {
+        <img :src="{{imageUrl+file}}" alt class="uploded-image">
+        <button type="button"
+          class="btn btn-soft-danger delete-btn waves-effect waves-light"
+          (click)="deleteExistingFile(file)">
+          <i class="bx bx-trash-alt font-size-16 align-middle"></i>
+        </button>}
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+@if(fileList && fileList.length !=0){
+<div class="dropzone-view mb-3">
+  <label [for]="fieldConfig.jsonProperty">{{fieldConfig.title}}</label>
+  <div class="container-fluid">
+    <div class="row h-100">
+      <div class="d-flex align-items-center justify-content-between p-0">
+        @for (file of fileList; track $index) {
+        <img :src="{{tempUrl+file}}" alt class="uploded-image">
+        <button type="button"
+          class="btn btn-soft-danger delete-btn waves-effect waves-light py-0 h-100"
+          (click)="deleteTempFile(file)">
+          <i class="bx bx-trash-alt font-size-16 align-middle"></i>
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+@if(fileList.length === 0 && existingFiles.length === 0){
+<div [formGroup]="formGroup">
+  <label [for]="fieldConfig.jsonProperty">{{fieldConfig.title}}</label>
+  <dropzone #dropzones [config]="dzConfig" (addedFiles)="onUpload($event)"
+    [message]="fieldConfig.title"
+    class="dropzone-global"
+    [ngClass]="{'is-valid': isSubmitted && formGroup.get(fieldConfig.jsonProperty).valid, 'is-invalid': isSubmitted && formGroup.get(fieldConfig.jsonProperty).errors}">
+  </dropzone>
+  <input [formControlName]="fieldConfig.jsonProperty" matInput type="text"
+    hidden />
+  @if(isSubmitted && formGroup.get(fieldConfig.jsonProperty).errors){
+  <div class="invalid-feedback">
+    @for (validation of fieldConfig.validation; track $index) {
+    <span>{{validation.message}}</span> }
+  </div>
+  }
+</div>
+}
+
+<!-- <div class="flex-grow-1">
+    <h5 class="font-size-14 mb-1 text-truncate"><a href="javascript:void(0)" class="text-body">{{file.name}}</a>
+      </h5>
+    <p class="text-muted text-truncate mb-0">KB</p>
+  </div> -->

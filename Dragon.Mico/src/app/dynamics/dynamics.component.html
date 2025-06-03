@@ -1,0 +1,7 @@
+<dybreadcrumb></dybreadcrumb>
+@if(pageService.pageConfig && pageService.pageConfig.widgets){
+@for (widget of pageService.pageConfig.widgets; track $index;) {
+<dynamicsdirective [widget]="widget"></dynamicsdirective>}
+}
+
+<!-- <dycruddashboard></dycruddashboard> -->

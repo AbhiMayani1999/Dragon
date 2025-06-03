@@ -1,0 +1,102 @@
+<!-- {{tableConfig | json}} -->
+<div class="table-section">
+    <div class="table-responsive">
+        <table>
+            <thead class="sticky top-0 left-0 outline-2 outline outline-[#e0e6ed33]">
+                <tr>
+                    <th class="font-bold" *ngFor="let field of columnConfig">
+                        <div class="flex items-center border border-[transparent]">
+                            <span class="mr-3">{{field.title}}</span>
+                            <div class="table-sorting">
+                                <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
+                                    <polygon points="3.11,6.25 10.89,6.25 7,1.75" fill="#c8c8cd" class="bg-[#c8c8cd]">
+                                    </polygon>
+                                    <polygon points="7,12.25 10.89,7.75 3.11,7.75" fill="#c8c8cd" class="bg-[#c8c8cd]">
+                                    </polygon>
+                                </svg>
+                            </div>
+                        </div>
+                    </th>
+                    <th class="font-bold text-center">Action</th>
+                </tr>
+                <tr class="!bg-[#fff]">
+                    <th class="font-bold py-1" *ngFor="let field of columnConfig">
+                        <div class="table-filter flex">
+                            <input type="text" class="form-input-sm form-input w-100 px-1">
+                        </div>
+                    </th>
+                    <th class="font-bold py-2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr *ngFor="let data of tableData;">
+            <td class="whitespace-nowrap">
+                <div class="flex items-center">
+                    <img class="h-9 w-9 rounded-full object-cover ltr:mr-2 rtl:ml-2"
+                        src="assets/images/profile-25.jpeg">
+                    {{data.Id}}
+                </div>
+            </td>
+            <td>{{data.Title}}</td>
+            <td>{{data.Name}}</td>
+            <td>{{data.IsPreDefined}}</td>
+            <td>{{data.SubmitUrl}}</td>
+            <td>{{data.IsActive}}</td>
+            <td>{{data.IsSave}}</td>
+            <td>{{data.IsReset}}</td>
+            <td>{{data.IsExport}}</td>
+        </tr> -->
+            </tbody>
+        </table>
+    </div>
+    <div class="flex justify-between items-center mt-4">
+        <div class="flex items-center">
+            <span class="mr-2">Showing 1 to 10 of 25 entries</span>
+            <!-- <ng-select [searchable]="false" [clearable]="false" class="custom-multiselect"> </ng-select> -->
+        </div>
+        <ul class="flex items-center justify-end space-x-1 rtl:space-x-reverse">
+            <li>
+                <button type="button"
+                    class="flex justify-center rounded-full bg-white-light p-2 font-semibold text-dark transition hover:bg-primary hover:text-white dark:bg-[#191e3a] dark:text-white-light dark:hover:bg-primary">
+                    <icon-carets-down class="rotate-90 rtl:-rotate-90" />
+                </button>
+            </li>
+            <li>
+                <button type="button"
+                    class="flex justify-center rounded-full bg-white-light p-2 font-semibold text-dark transition hover:bg-primary hover:text-white dark:bg-[#191e3a] dark:text-white-light dark:hover:bg-primary">
+                    <icon-caret-down class="h-5 w-5 rotate-90 rtl:-rotate-90" />
+                </button>
+            </li>
+            <li>
+                <button type="button"
+                    class="flex justify-center rounded-full bg-white-light px-3.5 py-2 font-semibold text-dark transition hover:bg-primary hover:text-white dark:bg-[#191e3a] dark:text-white-light dark:hover:bg-primary">
+                    1
+                </button>
+            </li>
+            <li>
+                <button type="button"
+                    class="flex justify-center rounded-full bg-primary px-3.5 py-2 font-semibold text-white transition dark:bg-primary dark:text-white-light">
+                    2
+                </button>
+            </li>
+            <li>
+                <button type="button"
+                    class="flex justify-center rounded-full bg-white-light px-3.5 py-2 font-semibold text-dark transition hover:bg-primary hover:text-white dark:bg-[#191e3a] dark:text-white-light dark:hover:bg-primary">
+                    3
+                </button>
+            </li>
+            <li>
+                <button type="button"
+                    class="flex justify-center rounded-full bg-white-light p-2 font-semibold text-dark transition hover:bg-primary hover:text-white dark:bg-[#191e3a] dark:text-white-light dark:hover:bg-primary">
+                    <icon-caret-down class="h-5 w-5 -rotate-90 rtl:rotate-90" />
+                </button>
+            </li>
+            <li>
+                <button type="button"
+                    class="flex justify-center rounded-full bg-white-light p-2 font-semibold text-dark transition hover:bg-primary hover:text-white dark:bg-[#191e3a] dark:text-white-light dark:hover:bg-primary">
+                    <icon-carets-down class="-rotate-90 rtl:rotate-90" />
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

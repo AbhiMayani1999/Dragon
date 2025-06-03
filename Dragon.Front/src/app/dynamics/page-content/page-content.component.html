@@ -1,0 +1,4 @@
+<dy-generator></dy-generator>
+<ng-container *ngIf="pageService.pageConfig && pageService.pageConfig.widgets">
+    <page-content *ngFor="let widget of pageService.pageConfig.widgets" [widget]="widget"></page-content>
+</ng-container>

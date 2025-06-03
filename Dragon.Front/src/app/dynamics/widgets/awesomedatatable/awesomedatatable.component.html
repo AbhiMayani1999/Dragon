@@ -1,0 +1,10 @@
+<div class="panel" *ngIf="!isFrom">
+    <div class="panel-header flex justify-between items-center mb-[1.2rem]">
+        <div class="text-lg font-semibold">Component</div>
+        <button type="button" class="btn btn-primary gap-2" (click)="isFrom = true">
+            <icon-plus class="ltr:mr-2 rtl:ml-2" /> ADD
+        </button>
+    </div>
+    <aw-tableview [config]="config"></aw-tableview>
+</div>
+<aw-from *ngIf="isFrom" [config]="config.form"></aw-from>

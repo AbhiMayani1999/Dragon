@@ -1,0 +1,34 @@
+.dropzone-global {
+  height: 38px;
+}
+.dropzone-view{
+  .container-fluid{
+    height: 38px;
+    border: 1px dashed var(--bs-gray-400) !important;
+    border-radius: 5px!important;
+    .uploded-image{
+      max-height: 36px;
+      padding: 0 0 0 3px;
+    }
+    .delete-btn{
+      margin: -1px 0;
+    }
+  }
+}
+::ng-deep {
+  dropzone > {
+    .dz-wrapper {
+      overflow: hidden !important;
+    }
+  }
+}
+
+::ng-deep .is-invalid {
+  .dz-wrapper {
+    border-color: var(--bs-form-invalid-border-color) !important;
+  }
+}
+
+::ng-deep [data-bs-theme="dark"] .is-invalid .dz-wrapper {
+  border-color: var(--bs-form-invalid-border-color) !important;
+}

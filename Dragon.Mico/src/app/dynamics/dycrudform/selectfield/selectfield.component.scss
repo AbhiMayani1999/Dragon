@@ -1,0 +1,16 @@
+::ng-deep.ng-select-global {
+  .ng-select-container {
+    background-color: var(--bs-tertiary-bg) !important;
+    border-color: var(--bs-border-color);
+  }
+  &.is-valid {
+    .ng-select-container {
+      border-color: var(--bs-form-valid-border-color) !important;
+    }
+  }
+  &.is-invalid {
+    .ng-select-container {
+      border-color: var(--bs-form-invalid-border-color) !important;
+    }
+  }
+}

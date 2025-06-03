@@ -1,0 +1,69 @@
+@if (fieldConfig && fieldConfig.length) {
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header align-items-center justify-content-between d-flex py-1 pe-1">
+        <div class="flex-shrink-0">
+          <ul ngbNav #cardHeader="ngbNav" [activeId]="1"
+            class="nav dy-form-nav justify-content-start nav-tabs-custom rounded card-header-tabs">
+            <li [ngbNavItem]="1">
+              <a ngbNavLink>
+                <span class="d-block">{{dynamicForm.value.id === 0 ? "Create" : "Update" }} {{formConfig.title}}</span>
+              </a>
+              <ng-template ngbNavContent>
+                <form [formGroup]="dynamicForm" novalidate>
+                  <div class="row align-items-start dycrud-wrapper">
+                    @for (field of fieldConfig; track $index) {
+                    <div class="col-xxl-3 col-md-6 d-flex flex-column mb-2">
+                      <formfield [config]="{field: field, isSubmitted: isSubmitForm, formGroup: dynamicForm}">
+                      </formfield>
+                    </div>
+                    }
+                  </div>
+                </form>
+              </ng-template>
+            </li>
+            @if(dynamicForm.value.id !== 0 && !isExpandedMode){
+            @if(subTables && subTables.length){
+            @for (item of subTables; track $index) {
+            <li [ngbNavItem]="$index+2">
+              <a ngbNavLink> <span class="d-block">{{item.title}}</span> </a>
+              <ng-template ngbNavContent> <app-dycrudtable [config]="item"></app-dycrudtable> </ng-template>
+            </li>
+            }}}
+          </ul>
+        </div>
+        <div class="button">
+          @if(dynamicForm.value.id !== 0 && subTables && subTables.length){
+          <button type="button" class="btn btn-soft-info btn-md waves-effect waves-light me-1"
+            (click)="isExpandedMode = !isExpandedMode">
+            <i class="bx font-size-16 b m-1 align-middle" [ngClass]="!isExpandedMode? 'bx-expand':'bx-collapse'"></i>
+          </button>
+          }
+          <button type="button" class="btn btn-soft-danger btn-md waves-effect waves-light float-end"
+            (click)="closeForm()">
+            <i class="mdi mdi-close-thick font-size-16 align-middle"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div [ngbNavOutlet]="cardHeader" class="text-muted"></div>
+      </div>
+      @if(cardHeader.activeId === 1) {
+      <div class="card-footer d-flex justify-content-end p-1">
+        <button type="button" class="btn btn-soft-danger btn-md waves-effect waves-light me-1" (click)="resetForm()">
+          <i class="bx bx-reset font-size-20 align-middle"></i>
+        </button>
+        <button type="button" class="btn btn-soft-primary btn-md waves-effect waves-light" (click)="submitForm()">
+          <i class="bx bxs-save font-size-20 align-middle"></i>
+        </button>
+      </div>
+      }
+    </div>
+    @if(isExpandedMode){
+    @for (item of subTables; track $index) {
+    <app-dycrudtable [config]="item"></app-dycrudtable>
+    } }
+  </div>
+</div>
+}

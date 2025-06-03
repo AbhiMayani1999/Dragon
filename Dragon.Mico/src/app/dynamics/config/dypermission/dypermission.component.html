@@ -1,0 +1,148 @@
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card m-0">
+      <div class="card-header align-items-center d-flex">
+        <div class="flex-shrink-0">
+          <ul ngbNav #cardHeader="ngbNav" [activeId]="1"
+            class="nav justify-content-end nav-tabs-custom rounded card-header-tabs">
+            <li [ngbNavItem]="1">
+              <a ngbNavLink>
+                <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                <span class="d-none d-sm-block">User Type</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="card border-0 m-0">
+                  <div class="card-body p-0 border-0">
+                    <div class="list-group list-group-flush">
+                      @for (item of userTypeData; track $index) {
+                      <a class="list-group-item list-group-item-action p-3 c-pointer"
+                        (click)="onSelectAssignment(item, false)">
+                        <div class="d-flex align-items-center">
+                          <div class="avatar-sm flex-shrink-0 me-3">
+                            <img src="assets/images/users/avatar-1.jpg" alt class="img-thumbnail rounded-circle">
+                          </div>
+                          <div class="flex-grow-1">
+                            <div>
+                              <h5 class="font-size-14 mb-1">{{item?.name}}</h5>
+                              <p class="font-size-13 text-muted mb-0">Full Stack Developer</p>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+              <a ngbNavLink>
+                <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                <span class="d-none d-sm-block">User</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="card border-0 m-0">
+                  <div class="card-body p-0 border-0">
+                    <div class="list-group list-group-flush">
+                      @for (item of userData; track $index) {
+                      <a class="list-group-item list-group-item-action p-3 c-pointer"
+                        (click)="onSelectAssignment(item, true)">
+                        <div class="d-flex align-items-center">
+                          <div class="avatar-sm flex-shrink-0 me-3">
+                            <img src="assets/images/users/avatar-1.jpg" alt class="img-thumbnail rounded-circle">
+                          </div>
+                          <div class="flex-grow-1">
+                            <div>
+                              <h5 class="font-size-14 mb-1">{{item.username}}</h5>
+                              <p class="font-size-13 text-muted mb-0">Full Stack Developer</p>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div [ngbNavOutlet]="cardHeader" class="text-muted"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-9">
+    <div class="card h-100 border-0">
+      <div>
+        <table class="table table-bordered dt-responsive nowrap w-100 datatables">
+          <thead>
+            <tr>
+              <td class="p-1" colspan="5">
+                <div class="d-flex align-items-center justify-content-between px-1">
+                  <span class="fw-bold">{{permissionConfig.title}}{{permissionType}}</span>
+                  <button type="button" class="btn btn-soft-primary btn-md waves-effect waves-light float-end"
+                    (click)="handleSubmit()">
+                    <i class="bx bxs-save font-size-20 align-middle"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            @if(currentNavigations && currentNavigations.length){
+            @for (item of currentNavigations; track $index) {
+            <tr>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [attr.id]="item.code+'-all'" [(ngModel)]="item.isFull"
+                    (change)="onAssignAll(item)">
+                  <label class="form-check-label font-bold" [attr.for]="item.code+'-all'">
+                    {{item.name}}
+                  </label>
+                </div>
+              </td>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" [attr.id]="item.code+'-view'" type="checkbox"
+                    [(ngModel)]="item.isView" (change)="onCheckAssignAll(item)">
+                  <label class="form-check-label" [attr.for]="item.code+'-view'"> View </label>
+                </div>
+              </td>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" [attr.id]="item.code+'-create'" type="checkbox"
+                    [(ngModel)]="item.isCreate" (change)="onCheckAssignAll(item)">
+                  <label class="form-check-label" [attr.for]="item.code+'-create'">
+                    Create
+                  </label>
+                </div>
+              </td>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" [attr.id]="item.code+'-edit'" type="checkbox"
+                    [(ngModel)]="item.isEdit" (change)="onCheckAssignAll(item)">
+                  <label class="form-check-label" [attr.for]="item.code+'-edit'"> Edit </label>
+                </div>
+              </td>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" [attr.id]="item.code+'-delete'" type="checkbox"
+                    [(ngModel)]="item.isDelete" (change)="onCheckAssignAll(item)">
+                  <label class="form-check-label" [attr.for]="item.code+'-delete'"> Delete </label>
+                </div>
+              </td>
+            </tr>
+            }
+            }@else {
+            <tr>
+              <td class="text-center">No Data Found</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

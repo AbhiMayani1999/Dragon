@@ -1,0 +1,18 @@
+<modal #template class="modal-top" [closeOnOutsideClick]="false">
+    <ng-template #modalHeader>
+        <div>{{config.title}}</div>
+    </ng-template>
+    <ng-template #modalBody>
+        <div>{{config.description}}</div>
+    </ng-template>
+    <ng-template #modalFooter>
+        <button type="button" class="btn btn-secondary btn-sm m-1" (click)="onClosePopup()">
+            <icon-x-circle class="ltr:mr-1 rtl:ml-1" />
+            Cancel
+        </button>
+        <button type="button" class="btn btn-primary btn-sm m-1" (click)="onConfirmClick()">
+            <icon-save class="ltr:mr-2 rtl:ml-2" />
+            Save
+        </button>
+    </ng-template>
+</modal>

@@ -1,0 +1,99 @@
+<modal #template class="modal-top extra-large-modal" [closeOnOutsideClick]="false">
+  <ng-template #modalHeader>
+    <div>Generator Form</div>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="mb-5">
+      <form [formGroup]="generatorForm" class="space-y-5">
+        <div class="w-50 grid grid-flow-col grid-rows-3 gap-x-6 gap-y-4 sm:grid-rows-1">
+          <div class="row-span-3">
+            <div class="mb-3">
+              <label>Component Name</label>
+              <input type="text" placeholder="Enter Component Name" formControlName="name"
+                class="form-input" />
+            </div>
+            <div class="mb-3">
+              <label>Group</label>
+              <ng-select [multiple]="true" [clearable]="false" [(ngModel)]="selectedGroup"
+                [ngModelOptions]="{ standalone: true }" (change)="onSelectGroup($event)" placeholder="Select groups"
+                class="custom-multiselect">
+                <ng-option *ngFor="let item of parentComponents" [value]="item.id">{{item.name}}</ng-option>
+              </ng-select>
+            </div>
+            <div class="mb-3">
+              <label class="col-1 mb-2 flex cursor-pointer items-center">
+                <input type="checkbox" class="form-checkbox" formControlName="canBeParent" />
+                <span class="text-white-dark">Can Be Parent</span>
+              </label>
+            </div>
+          </div>
+          <div class="col-span-2">
+            <h6
+              class="mb-3 border-b border-[#e0e6ed] text-lg font-semibold dark:border-[#1b2e4b] dark:text-white-light">
+              Properties</h6>
+            <div class="flex px-2 py-2" *ngFor="let property of genericProperty">
+              <label class="col-1 mb-0 flex min-w-[10rem] cursor-pointer items-center">
+                <input type="checkbox" class="form-checkbox" [checked]="selectedPropertyIds.includes(property.id)"
+                  (change)="onSelectProperty($event, property)" />
+                <span class="text-white-dark">{{ property.name }}</span>
+              </label>
+              <label class="col-1 mb-0 flex cursor-pointer items-center"
+                *ngIf="selectedPropertyIds.includes(property.id)">
+                <input type="checkbox" class="form-checkbox" [checked]="selectedPropertyMultiple.includes(property.id)"
+                  (change)="onSelectMultiple($event, property)" />
+                <span class="text-white-dark">Is Multiple</span>
+              </label>
+            </div>
+          </div>
+          <div class="col-span-2 row-span-2">
+            <h6
+              class="mb-3 border-b border-[#e0e6ed] text-lg font-semibold dark:border-[#1b2e4b] dark:text-white-light">
+              Custom Properties</h6>
+
+            <div
+              class="mb-2 w-full rounded border border-[#e0e6ed] bg-white shadow-[1px_2px_2px_-3px_#bfc9d4] dark:border-[#1b2e4b] dark:bg-[#191e3a] dark:shadow-none"
+              *ngFor="let property of customProperty">
+              <div class="flex px-2 py-2">
+                <label class="m-0 flex min-w-[10rem] cursor-pointer items-center">
+                  <input type="checkbox" class="form-checkbox" [checked]="selectedPropertyIds.includes(property.id)"
+                    (change)="onSelectProperty($event, property)" />
+                  <span class="mr-3 text-white-dark">{{ property.name }}</span>
+                </label>
+
+                <label class="col-1 m-0 flex cursor-pointer items-center"
+                  *ngIf="selectedPropertyIds.includes(property.id)">
+                  <input type="checkbox" class="form-checkbox"
+                    [checked]="selectedPropertyMultiple.includes(property.id)"
+                    (change)="onSelectMultiple($event, property)" />
+                  <span class="text-white-dark">Is Multiple</span>
+                </label>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <label class="mt-1 flex cursor-pointer items-center">
+                <input type="checkbox" class="form-checkbox" disabled />
+              </label>
+              <input type="text" placeholder="Enter Custom Property" [(ngModel)]="customProp"
+                [ngModelOptions]="{ standalone: true }" class="form-input mr-3 w-2/5" />
+              <button type="button" class="btn btn-outline-primary btn-sm m-1" (click)="onAddCustomProperty()"
+                [disabled]="!customProp">
+                <icon-plus class="ltr:mr-2 rtl:ml-2" />
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button type="button" class="btn btn-primary btn-sm m-1" (click)="onClosePopup()">
+      <icon-x-circle class="ltr:mr-1 rtl:ml-1" />
+      Cancel
+    </button>
+    <button type="button" class="btn btn-primary btn-sm m-1" (click)="saveForm()">
+      <icon-save class="ltr:mr-2 rtl:ml-2" />
+      Save
+    </button>
+  </ng-template>
+</modal>

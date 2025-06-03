@@ -1,0 +1,12 @@
+<div class="mb-2" [ngClass]="isSubmitted ? formGroup.get(config.jsonProperty).errors ? 'has-error' : 'has-success' : ''"
+    [formGroup]="formGroup">
+    <label class="inline-flex cursor-pointer">
+        <input type="checkbox" [formControlName]="config.jsonProperty" class="form-checkbox" checked />
+        <span>{{config.title}}</span>
+    </label>
+    <ng-container *ngFor="let validation of config.validation">
+        <p *ngIf="isSubmitted && formGroup.get(config.jsonProperty).hasError(validation.type)" class="mt-1 text-danger">
+            {{validation.message}}
+        </p>
+    </ng-container>
+</div>

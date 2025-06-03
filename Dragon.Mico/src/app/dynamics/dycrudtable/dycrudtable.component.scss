@@ -1,0 +1,32 @@
+.no-sort {
+  ::before,
+  ::after {
+    content: none !important;
+  }
+}
+
+ngb-pagination {
+  display: table-cell;
+  padding: 0;
+}
+
+.datatables > tbody > tr {
+  .ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100px;
+  }
+  .no-sort {
+    &::after {
+      display: none;
+    }
+    &::before {
+      display: none;
+    }
+  }
+}
+
+::ng-deep .pagination {
+  margin: 0 !important;
+}

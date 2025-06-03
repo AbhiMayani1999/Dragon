@@ -1,0 +1,20 @@
+.accordion-button:not(.collapsed)
+{
+  background: none!important;
+  box-shadow: none!important;
+}
+.accordion-button{
+  &::after{
+    display: none!important;
+  }
+}
+
+.icon-demo-content i{
+  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  margin: 0!important;
+}
+.child-item{
+  border: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color);
+}

@@ -1,0 +1,77 @@
+<modal #template class="modal-top extra-large-modal" [closeOnOutsideClick]="false">
+  <ng-template #modalHeader>
+    <div>Edit Component Properties
+      <span class="text-slate-400 font-medium" *ngIf="editStructure && editStructure.identifier"> |
+        <span class="text-base">{{editStructure.identifier}}</span>
+      </span>
+    </div>
+  </ng-template>
+  <ng-template #modalBody>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th class="text-[14px] py-2 px-3 w-1/12 font-bold">ID</th>
+            <th class="text-[14px] py-2 px-3 w-1/6 font-bold">Name</th>
+            <th class="text-[14px] py-2 px-3 w-1/6 font-bold">Type</th>
+            <th class="text-[14px] py-2 px-3 w-6/12 font-bold">Structure</th>
+            <th class="text-[14px] py-2 px-3 w-1/12 font-bold text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="editStructure && editStructure.properties && editStructure.properties.length">
+            <tr *ngFor="let property of editStructure.properties">
+              <td class="text-[14px] py-2 px-3"> #{{property.id}} </td>
+              <td class="whitespace-nowrap text-[14px] py-2 px-3">
+                {{property.componentStructureProperty?.componentProperty?.name}}</td>
+              <ng-container *ngIf="editProperty && editProperty.id === property.id; else showData">
+                <td class="w-1/6 text-[14px] py-2 px-3">
+                  <ng-select [appendTo]="'body'" [classList]="'w-11/12'" [(ngModel)]="editProperty.type"
+                    [items]="propertyTypeList" [searchable]="false" [clearable]="false" placeholder="Type"
+                    class="custom-multiselect" (change)="onChangePropertyType()">
+                  </ng-select>
+                </td>
+                <td class="w-6/12 text-[14px] py-2 px-3">
+                  <ng-container *ngIf="editProperty.type === 'Component'">
+                    <ng-select [appendTo]="'body'" [classList]="'w-11/12'" [(ngModel)]="property.childMapping"
+                      [multiple]="property.componentStructureProperty?.isMultiple!" [clearable]="false"
+                      placeholder="Select an structure" class="custom-multiselect">
+                      <ng-option *ngFor="let item of editStructure.subStructureList"
+                        [value]="item.id">{{item.identifier}}</ng-option>
+                    </ng-select>
+                  </ng-container>
+
+                  <ng-container *ngIf="editProperty.type !== 'Component'">
+                    <input type="text" [(ngModel)]="editProperty.value" placeholder="Enter value" class="form-input" />
+                  </ng-container>
+                </td>
+              </ng-container>
+              <ng-template #showData>
+                <td class="w-1/6 text-[14px] py-2 px-3">{{property.type}}</td>
+                <td class="w-6/12 text-[14px] py-2 px-3">{{property.structureMappingNameList ?
+                  property.structureMappingNameList : property.value ? property.value : '-' }}</td>
+              </ng-template>
+              <td class="text-center text-[14px] py-2 px-3">
+                <div class="flex items-center justify-center">
+                  <ng-container *ngIf="editProperty && editProperty.id === property.id; else showEdit">
+                    <div (click)="onUpdateProperty()" class="text-center cursor-pointer">
+                      <icon-save class="h-5 w-5 mr-1" />
+                    </div>
+                    <div (click)="editProperty = null;" class="text-center cursor-pointer">
+                      <icon-x class="h-5 w-5" />
+                    </div>
+                  </ng-container>
+                  <ng-template #showEdit>
+                    <div (click)="editProperty = property" class="text-center cursor-pointer">
+                      <icon-edit class="h-5 w-5" />
+                    </div>
+                  </ng-template>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </ng-template>
+</modal>

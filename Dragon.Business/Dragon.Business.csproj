@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dragon.Data\Dragon.Data.csproj" />
+    <ProjectReference Include="..\Dragon.Enm\Dragon.Enm.csproj" />
+    <ProjectReference Include="..\Dragon.Model\Dragon.Model.csproj" />
+    <ProjectReference Include="..\Dragon.Provider\Dragon.Provider.csproj" />
+  </ItemGroup>
+
+</Project>

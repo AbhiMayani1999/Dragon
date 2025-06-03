@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 56 49" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+    <defs>
+        <linearGradient id="eo7NTJSCr2M4-fill" x1="13.3494" y1="3.52653" x2="40.4654" y2="43.5748"
+            spreadMethod="pad" gradientUnits="userSpaceOnUse" gradientTransform="translate(0 0)">
+            <stop id="eo7NTJSCr2M4-fill-0" offset="0%" stop-color="#ef1262" />
+            <stop id="eo7NTJSCr2M4-fill-1" offset="100%" stop-color="#4361ee" />
+        </linearGradient>
+    </defs>
+    <g transform="matrix(-1 0 0-1 55.802818 48.999977)">
+        <path
+            d="M27.9051,21.4676c3.7509,0,6.7915-3.0407,6.7915-6.7916s-3.0406-6.79148-6.7915-6.79148-6.7915,3.04068-6.7915,6.79148s3.0407,6.7916,6.7915,6.7916Z"
+            transform="matrix(-1 0 0-1 55.810202 29.35212)" fill="#ffd600" fill-opacity="0.78" />
+        <path
+            d="M55.4467,3.83521L30.1078,47.7297c-.9762,1.6937-3.4291,1.6937-4.4136,0L0.355311,3.83521C-0.946256,1.5825,1.58177,-0.945529,3.83449,0.356038L16.5248,7.6815c1.3182.75925,2.0024,2.31113,1.5852,3.7712-.3671,1.3016-.4923,2.7033-.3004,4.1634.6008,4.5972,4.3469,8.2599,8.9608,8.7605c6.1408.6675,11.3304-4.1299,11.3304-10.1288c0-.9261-.1252-1.8272-.3588-2.6783-.4088-1.5101.1919-3.10372,1.5435-3.87965L51.9841,0.356038c2.2444-1.301567,4.7641,1.218122,3.4626,3.479172Z"
+            fill="url(#eo7NTJSCr2M4-fill)" />
+    </g>
+</svg>
